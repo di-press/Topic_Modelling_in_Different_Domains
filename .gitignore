@@ -1,0 +1,11 @@
+
+__pycache__/
+*.pyc
+*.egg-info/
+*.egg
+.vscode/
+checkpoints/
+.polyscope.ini
+imgui.ini
+data/
+Dockerfile
