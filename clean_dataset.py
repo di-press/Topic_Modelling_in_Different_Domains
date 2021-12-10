@@ -53,13 +53,30 @@ def read_and_clean_file(filename):
                 break
 
     
-#def create_dataset_files(processed_lines, author_folder):
+def create_dataset_files(processed_lines, author_folder, filename):
 
-#    for line in processed_lines:
+    author_folder = str(author_folder)
+
+    destiny_file = Path(Path.cwd().joinpath('dataset', author_folder, filename)).mkdir(parents=True, exist_ok=True)
+
+    for line in processed_lines:
+        i = 0
 
 
 #print_processed_file(filename, processed_lines):
 
 #read_and_clean_file(Path.cwd().joinpath('books', 'Dostoievski', 'the_idiot.txt'))
 
-retrieve_files()
+#retrieve_files()
+
+destiny_folder = Path(Path.cwd().joinpath('dataset', 'autor')).mkdir(parents=True, exist_ok=True)
+#destiny_file = Path(Path.joinpath(destiny_folder, "texto.txt")).touch(exist_ok=True)
+
+Path.cwd().joinpath('dataset', 'autor',"texto.txt").touch(exist_ok=True)
+#Path.joinpath(destiny_folder, "texto.txt")).touch(exist_ok=True)
+destiny_file = Path.cwd().joinpath('dataset', 'autor',"texto.txt")
+
+with open(destiny_file, 'w', encoding="utf-8") as f:
+    f.write("Hello")
+#new_file = destiny_folder / 'myfile.txt'
+#new_file.is_file()
