@@ -3,38 +3,6 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 
-''' 
-def retrieve_files():
-
-    books_folder = Path.cwd().joinpath('books')
-    #Path.cwd().joinpath('dataset').mkdir(parents=True, exist_ok=True)
-
-    p = Path("dataset")
-    p.mkdir(parents=True, exist_ok=True)
-
-    #return 
-
-    all_books = []
-
-    for author_folder in books_folder.iterdir():
-
-        author_books = []
-
-        for book_file in author_folder.iterdir():
-            author_books.append(book_file)
-
-        all_books.append(author_books)
-
-
-    for author in all_books:
-        print("autor\n")
-
-        for file in author:
-            #print(file)
-
-            processed_lines = read_and_clean_file(file)
-            create_dataset_files(processed_lines, author, file)
-'''
 
 
 def read_and_clean_file(filename):
@@ -45,18 +13,45 @@ def read_and_clean_file(filename):
     processed_lines = []
 
     with open(filename, 'r', encoding="utf-8") as f:
+
+        check_start_book = False
+        #book_start = '*** START OF THE PROJECT GUTENBERG EBOOK CRIME AND PUNISHMENT ***'
+        
         for line in f:
 
-            line = line.lower()
-            tokens = word_tokenize(line)
+            if line != "":
 
-            filtered_tokens = [token for token in tokens if not token.lower() in stop_words]
+                line = line.lower()
+                check_valid_line = line.split()
+                check_valid_line = check_valid_line[:6]
+                check_valid_line = ' '.join(check_valid_line)
 
-            processed_line = (" ".join(filtered_tokens))
+                if '*** start of the project gutenberg' == check_valid_line:
+                    check_start_book = True
+                
+                if '* * * start of the project gutenberg' == check_valid_line:
+                    
+                    check_start_book = True
 
-            #print(processed_line)
-            #print(filtered_tokens)
-            processed_lines.append(processed_line)
+                if not check_start_book:
+                    continue 
+
+
+                tokens = word_tokenize(line)
+
+                filtered_tokens = [token for token in tokens if not token.lower() in stop_words]
+
+                processed_line = (" ".join(filtered_tokens))
+
+
+                processed_lines.append(processed_line)
+
+                if '*** end of the project gutenberg' == check_valid_line:
+                    break
+
+                if '* * * end of the project gutenberg' == check_valid_line:
+                    break
+
 
     return processed_lines
 
@@ -76,7 +71,6 @@ def retrieve_debug():
         author_name = str(author_folder)
         author_name = author_name.split("/")
         author_name = author_name[-1:]
-        print("author_name: ", author_name)
 
         author_books = []
 
@@ -89,7 +83,6 @@ def retrieve_debug():
         for author in all_books:
             
             path_name = str(author_folder)
-            print(author_folder)
             path_name = path_name.split("/")
             author_name = path_name[-1]
 
