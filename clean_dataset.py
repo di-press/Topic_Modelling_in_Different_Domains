@@ -15,7 +15,6 @@ def read_and_clean_file(filename):
     with open(filename, 'r', encoding="utf-8") as f:
 
         check_start_book = False
-        #book_start = '*** START OF THE PROJECT GUTENBERG EBOOK CRIME AND PUNISHMENT ***'
         
         for line in f:
 
@@ -26,6 +25,7 @@ def read_and_clean_file(filename):
                 check_valid_line = check_valid_line[:6]
                 check_valid_line = ' '.join(check_valid_line)
 
+                # removendo cabeçalhos e índices:
                 if '*** start of the project gutenberg' == check_valid_line:
                     check_start_book = True
                 
@@ -46,6 +46,8 @@ def read_and_clean_file(filename):
 
                 processed_lines.append(processed_line)
 
+                # removendo apêndices e licenças ao final do arquivo:
+
                 if '*** end of the project gutenberg' == check_valid_line:
                     break
 
@@ -57,7 +59,7 @@ def read_and_clean_file(filename):
 
 
 
-def retrieve_debug():
+def generate_processed_dataset_Gutenberg():
 
     books_folder = Path.cwd().joinpath('books')
 
@@ -111,4 +113,9 @@ def create_dataset_files(processed_lines, author_folder, filename):
         for line in processed_lines:
             f.write(line)
 
-retrieve_debug()
+
+if __name__ == '__main__':
+
+    # processa apenas os arquivos a serem utilizados no Colab. Não faz
+    # sentido processar a base inteira (demora muito, e não iremos usar os 20 000 livros)
+    generate_processed_dataset_Gutenberg()
