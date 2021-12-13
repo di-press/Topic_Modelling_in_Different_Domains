@@ -7,7 +7,7 @@ from nltk.tokenize import word_tokenize
 
 def read_and_clean_file(filename):
 
-    stop_words = set(stopwords.words('english'))
+    #stop_words = set(stopwords.words('english'))
     count = 0
 
     processed_lines = []
