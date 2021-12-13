@@ -9,11 +9,6 @@ def init():
     GutenbergCache.create(refresh=True, download=True, unpack=True, parse=True, cache=True, deleteTemp=True)
     # get the default cache (SQLite)
     cache = GutenbergCache.get_cache()
-    # For the query function you can use the following fields: languages authors types titles subjects publishers bookshelves
-    #print(len(cache.query(downloadtype=['text/plain'], languages=['en'])))
-    #print(cache.query(books=['2638']))
-
-    # Print stripped text
 
 
 def query():
@@ -38,9 +33,9 @@ def teste_query():
     # get the default cache (SQLite)
     cache = GutenbergCache.get_cache()
     # For the query function you can use the following fields: languages authors types titles subjects publishers bookshelves
-    #print(cache.query(subjects=['Science fiction']))
+    
     print(type(cache.query(languages=['en'])))
-    # Print stripped text
+
 
 
 def init_cache():
@@ -50,8 +45,7 @@ def init_cache():
     cache = GutenbergCache.get_cache()
     # For the query function you can use the following fields: languages authors types titles subjects publishers bookshelves
     print(cache.query)
-    # Print stripped text
-
+    
 
 def english_books():
     # create cache from scratchfrom scratch
