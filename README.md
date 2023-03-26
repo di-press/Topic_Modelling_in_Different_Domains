@@ -1,4 +1,4 @@
-# Topic-Modeling-in-Different-Domains-with-BERTopic
+# Topic-Modeling-in-Different-Domains
 
 Diany Pressato e Matheus da Silva Araujo
 
